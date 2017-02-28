@@ -1,0 +1,16 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.9"
+}
+
+task runScript(type: JavaExec) {
+    main = 'com.lapots.directory.crawler.script'
+    classpath = sourceSets.main.runtimeClasspath
+}
