@@ -3,6 +3,18 @@ package com.lapots.directory.crawler
 import com.lapots.directory.crawler.core.domain.FSEntity
 import com.lapots.directory.crawler.core.domain.tree.FSNode
 import com.lapots.directory.crawler.core.processor.FSUtils
+import com.lapots.directory.crawler.core.processor.xml.FSXMLUtils
+
+def xmlSample = """
+    <filesystem-root>
+        <directory name="C">
+            <directory name="users">
+                <file name="document.docx"/>
+            <directory>
+            <file name="image.png"/>
+        </directory>
+    </filesystem-root>
+"""
 
 // create filesystem folder
 def fsEntityDirectory = new FSEntity(name: 'folder')
@@ -23,3 +35,12 @@ fsDirectoryNode.children << fsDirectoryNode2
 fsDirectoryNode.children << fsEntityNode
 
 println FSUtils.calculateSize(fsDirectoryNode)
+
+// add filesystem-root
+def xmlWriter = new StringWriter()
+FSXMLUtils.wrapFS(xmlWriter)
+
+def xmlWriter1 = new StringWriter()
+FSXMLUtils.serializeFS(fsDirectoryNode, xmlWriter1)
+
+println xmlWriter1.toString()
