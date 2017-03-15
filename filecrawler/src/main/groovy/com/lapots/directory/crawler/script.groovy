@@ -3,6 +3,7 @@ package com.lapots.directory.crawler
 import com.lapots.directory.crawler.core.domain.FSEntity
 import com.lapots.directory.crawler.core.domain.tree.FSNode
 import com.lapots.directory.crawler.core.processor.xml.FSXMLUtils
+import groovy.xml.MarkupBuilder
 
 def xmlSample = """
     <filesystem-root>
@@ -33,8 +34,8 @@ fsDirectoryNode2.children << fsEntityNode2
 fsDirectoryNode.children << fsDirectoryNode2
 fsDirectoryNode.children << fsEntityNode
 
-def xmlWriter = new StringWriter()
-FSXMLUtils.serializeFS(fsDirectoryNode, xmlWriter)
+def markupBuilder = new MarkupBuilder()
+FSXMLUtils.serializeFS(fsDirectoryNode, markupBuilder)
 
 
-println xmlWriter.toString()
+println markupBuilder.toString()

@@ -1,22 +1,17 @@
 package com.lapots.directory.crawler.core.processor.xml
 
-import groovy.xml.MarkupBuilder
-
 class FSXMLUtils {
 
-    static def serializeFS(node, output, xml = new MarkupBuilder(output)) {
+    static def serializeFS(node, xml) {
         if (node.children) {
-            xml.directory(name: node.data.name)
-            node.children.each {
-                xml = serializeFS(it, output, xml)
+            xml.directory(name: node.data.name) {
+                node.children.each {
+                    serializeFS(it, xml)
+                }
             }
         } else {
-            node.data.size ?
-                    xml.file(name: node.data.name, size: node.data.size) :
-                    xml.directory(name: node.data.name, "")
+            xml."${node.data.size ? 'file' : 'directory'}"(name: node.data.name, size: node.data.size)
         }
-
-        xml
     }
 
     static def wrapFS(output, xml) {
