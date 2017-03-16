@@ -6,14 +6,12 @@ import com.lapots.directory.crawler.core.processor.xml.FSXMLUtils
 import groovy.xml.MarkupBuilder
 
 def xmlSample = """
-    <filesystem-root>
-        <directory name="folder">
-            <directory name="users">
-                <file name="document.docx"/>
-            <directory>
-            <file name="image.png"/>
-        </directory>
-    </filesystem-root>
+    <directory name="folder">
+        <directory name="users">
+            <file name="document.docx"/>
+        <directory>
+        <file name="image.png"/>
+    </directory>
 """
 
 // create filesystem folder
@@ -36,6 +34,3 @@ fsDirectoryNode.children << fsEntityNode
 
 def markupBuilder = new MarkupBuilder()
 FSXMLUtils.serializeFS(fsDirectoryNode, markupBuilder)
-
-
-println markupBuilder.toString()
